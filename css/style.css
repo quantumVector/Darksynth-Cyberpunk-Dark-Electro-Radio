@@ -1,3 +1,61 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: "PCapTerminalBoldItalic";
+  src: url("/fonts/PCapTerminalBoldItalic.otf");
+}
+
+@font-face {
+  font-family: "PCapTerminalCondensedBoldItalic";
+  src: url("/fonts/PCapTerminalCondensedBoldItalic.otf");
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.logo p {
+  font-family: 'PCapTerminalBoldItalic';
+  font-size: 34px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #00BFFF;
+}
+
+#track-info-box {
+  position: absolute;
+  display: flex;
+  left: 40px;
+  bottom: 40px;
+}
+
+#track-info-box .left-rectangle {
+  border: 1px solid #00BFFF;
+  width: 10px;
+  background-color: #00BFFF;
+}
+
+#track-info-box .right-rectangle {
+  padding: 0px 20px;
+}
+
+#track-info-box .right-rectangle p {
+  margin: 0;
+}
+
+#track-info-box .right-rectangle .singer {
+  font-family: 'PCapTerminalBoldItalic';
+  /* font-family: 'PCapTerminalCondensedBoldItalic'; */
+  font-size: 44px;
+  color: #00BFFF;
+}
+
+#track-info-box .right-rectangle .track-name {
+  font-family: 'PCapTerminalCondensedBoldItalic';
+  font-size: 28px;
+  color: #00BFFF;
+}
