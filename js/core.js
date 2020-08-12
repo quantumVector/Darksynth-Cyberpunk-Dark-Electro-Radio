@@ -1,9 +1,12 @@
 const radius = 200;
+let font;
+let fontRegular;
 let audio = document.querySelector('audio');
 let visualizer;
 
 class Visualizer {
   constructor() {
+    this.prepared = false;
     this.play = false;
     this.loop = false;
     this.context;
@@ -29,12 +32,7 @@ class Visualizer {
     background('#000');
     translate(width / 2, height / 2);
 
-    textSize(70);
-    fill('#00BFFF');
-    textAlign(CENTER, CENTER);
-    textFont('SC_Realist');
-    this.drawShadow(2, -2, 10, '#00BFFF');
-    text('2:06', 0, 0);
+    this.drawTime();
 
     stroke('#00BFFF');
     strokeWeight(5);
@@ -42,27 +40,52 @@ class Visualizer {
     this.drawShadow(0, 0, 10, '#00BFFF');
     ellipse(0, 0, 190);
 
-    for (let i = 0; i < 160; i += 1) {
-      this.drawProgress(i, 0.86);
-    }
+    let currentDuration = audio.currentTime * 360 / audio.duration;
 
-    let z = 200;
-
-    for (let i = 0; i < 360; i += 5) {
-      let lastVertex = 0;
-
-      if (this.array) {
-        lastVertex = this.array[z] / 2;
-        z += 2;
+    if (audio.currentTime !== 0) {
+      for (let i = 0; i < currentDuration; i += 1) {
+        this.drawProgress(i, 0.86);
       }
 
-      this.drawPoint(i, 1, `1.${Math.floor(lastVertex)}`);
+      let z = 200;
+
+      for (let i = 0; i < 360; i += 5) {
+        let lastVertex = 0;
+
+        if (this.array) {
+          lastVertex = this.array[z] / 2;
+          z += 2;
+        }
+
+        this.drawPoint(i, 1, `1.${Math.floor(lastVertex)}`);
+      }
+
+      if (!this.loop) {
+        noLoop();
+      } else {
+        loop();
+      }
+    }
+  }
+
+  drawTime() {
+    let mins = Math.floor(audio.currentTime / 60);
+    let secs = Math.floor(audio.currentTime % 60);
+
+    if (secs < 10) {
+      secs = '0' + String(secs);
     }
 
-    if (!this.loop) {
-      noLoop();
+    fill('#00BFFF');
+    strokeWeight(1);
+    textFont(font);
+    textSize(60);
+    this.drawShadow(2, -2, 10, '#00BFFF');
+
+    if (audio.currentTime !== 0) {
+      text(`${mins}:${secs}`, -60, 23);
     } else {
-      loop();
+      text('Click', -67, 23);
     }
   }
 
@@ -100,6 +123,10 @@ class Visualizer {
   }
 }
 
+function preload() {
+  font = loadFont('/fonts/InterExtraLight.ttf');
+}
+
 function setup() {
   const cnv = createCanvas(windowWidth, windowHeight);
 
@@ -114,9 +141,18 @@ function draw() {
 }
 
 function mouseClicked() {
-  audio.play();
-  visualizer.preparation();
-  visualizer.play = true;
-  visualizer.loop = true;
-  visualizer.draw();
+  if (!visualizer.prepared) {
+    audio.play();
+    visualizer.preparation();
+    visualizer.prepared = true;
+    visualizer.play = true;
+    visualizer.loop = true;
+    visualizer.draw();
+  } else {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
 }
