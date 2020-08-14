@@ -2,7 +2,9 @@ const radius = 200;
 let font;
 let fontRegular;
 let audio = document.querySelector('audio');
+
 let visualizer;
+const infoBox = document.getElementById('track-info-box');
 
 class Visualizer {
   constructor() {
@@ -13,6 +15,7 @@ class Visualizer {
     this.analyser;
     this.src;
     this.array;
+    this.trackInfo = false;
   }
 
   preparation() {
@@ -65,6 +68,8 @@ class Visualizer {
       } else {
         loop();
       }
+
+      this.setTrackInfo();
     }
   }
 
@@ -120,6 +125,22 @@ class Visualizer {
     drawingContext.shadowOffsetY = y;
     drawingContext.shadowBlur = blur;
     drawingContext.shadowColor = color;
+  }
+
+  setTrackInfo() {
+    if (!this.trackInfo) {
+      infoBox.style.opacity = '1';
+      infoBox.style.visibility = 'visible';
+
+      let trackInfo = audio.outerHTML;
+      let regexp = /title\((.+) - (.+)\)/;
+      let result = trackInfo.match(regexp);
+
+      document.getElementById('artist').innerHTML = result[1];
+      document.getElementById('title').innerHTML = result[2];
+
+      this.trackInfo = true;
+    }
   }
 }
 
