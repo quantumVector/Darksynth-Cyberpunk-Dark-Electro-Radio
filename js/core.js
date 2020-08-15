@@ -69,7 +69,17 @@ class Visualizer {
         loop();
       }
 
-      this.setTrackInfo();
+      // this.setTrackInfo();
+
+      if (audio.currentTime === audio.duration) {
+        this.hideTrackInfo();
+        this.trackInfo = false;
+        this.playNextTrack();
+      }
+
+      if (audio.currentTime > 1 && this.trackInfo == false) {
+        this.setTrackInfo();
+      }
     }
   }
 
@@ -141,6 +151,27 @@ class Visualizer {
 
       this.trackInfo = true;
     }
+  }
+
+  hideTrackInfo() {
+    infoBox.style.opacity = '0';
+    infoBox.style.visibility = 'hidden';
+  }
+
+  playNextTrack() {
+    /* infoBox.style.opacity = '0';
+    infoBox.style.visibility = 'hidden'; */
+
+    /* setTimeout(() => {
+      this.playNextTrack();
+    }, 4); */
+
+    /* if (audio.currentTime > 4) {
+      this.playNextTrack();
+    } */
+
+    audio.src = 'songs/title(Quok - Wonderland).mp3';
+    audio.play();
   }
 }
 
