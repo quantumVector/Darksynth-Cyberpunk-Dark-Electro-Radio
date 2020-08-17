@@ -8,8 +8,7 @@ const trackList = [
   'songs/title(Quok - Wonderland).mp3',
   'songs/title(test - testerov).mp3'
 ];
-let editableTrackList = trackList;
-// let finishedTracks = [];
+let editableTrackList = trackList.slice();
 let visualizer;
 const infoBox = document.getElementById('track-info-box');
 
@@ -114,8 +113,6 @@ class Visualizer {
         loop();
       }
 
-      // this.setTrackInfo();
-
       if (audio.currentTime === audio.duration) {
         this.hideTrackInfo();
         this.trackInfo = false;
@@ -211,14 +208,13 @@ class Visualizer {
   chooseTrack() {
     let nextTrack = random(trackList);
 
+    if (!editableTrackList.length) editableTrackList = trackList.slice();
+
     if (editableTrackList.indexOf(nextTrack) >= 0) {
       editableTrackList.splice(editableTrackList.indexOf(nextTrack), 1);
       audio.src = nextTrack;
     } else {
       this.chooseTrack();
-      // тут потом ошибка после проигрывания всех треков
-
-      // коммит - Реализован выбор случайного трека
     }
   }
 }
