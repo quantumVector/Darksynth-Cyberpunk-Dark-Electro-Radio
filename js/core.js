@@ -2,9 +2,54 @@ const radius = 200;
 let font;
 let fontRegular;
 let audio = document.querySelector('audio');
-
+const trackList = [
+  'songs/title(Head Splitter - Scavengers Music).mp3',
+  'songs/title(Quinze - Le Glas).mp3',
+  'songs/title(Quok - Wonderland).mp3',
+  'songs/title(test - testerov).mp3'
+];
+let editableTrackList = trackList;
+// let finishedTracks = [];
 let visualizer;
 const infoBox = document.getElementById('track-info-box');
+
+function preload() {
+  font = loadFont('/fonts/InterExtraLight.ttf');
+}
+
+function setup() {
+  const cnv = createCanvas(windowWidth, windowHeight);
+
+  cnv.style('display', 'block');
+  visualizer = new Visualizer();
+
+  noStroke();
+}
+
+function draw() {
+  visualizer.draw();
+}
+
+function mouseClicked() {
+  if (!visualizer.prepared) {
+    let firstTrack = random(trackList);
+
+    editableTrackList.splice(editableTrackList.indexOf(firstTrack), 1);
+    audio.src = firstTrack;
+    audio.play();
+    visualizer.preparation();
+    visualizer.prepared = true;
+    visualizer.play = true;
+    visualizer.loop = true;
+    visualizer.draw();
+  } else {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+}
 
 class Visualizer {
   constructor() {
@@ -159,52 +204,21 @@ class Visualizer {
   }
 
   playNextTrack() {
-    /* infoBox.style.opacity = '0';
-    infoBox.style.visibility = 'hidden'; */
-
-    /* setTimeout(() => {
-      this.playNextTrack();
-    }, 4); */
-
-    /* if (audio.currentTime > 4) {
-      this.playNextTrack();
-    } */
-
-    audio.src = 'songs/title(Quok - Wonderland).mp3';
+    this.chooseTrack();
     audio.play();
   }
-}
 
-function preload() {
-  font = loadFont('/fonts/InterExtraLight.ttf');
-}
+  chooseTrack() {
+    let nextTrack = random(trackList);
 
-function setup() {
-  const cnv = createCanvas(windowWidth, windowHeight);
-
-  cnv.style('display', 'block');
-  visualizer = new Visualizer();
-
-  noStroke();
-}
-
-function draw() {
-  visualizer.draw();
-}
-
-function mouseClicked() {
-  if (!visualizer.prepared) {
-    audio.play();
-    visualizer.preparation();
-    visualizer.prepared = true;
-    visualizer.play = true;
-    visualizer.loop = true;
-    visualizer.draw();
-  } else {
-    if (audio.paused) {
-      audio.play();
+    if (editableTrackList.indexOf(nextTrack) >= 0) {
+      editableTrackList.splice(editableTrackList.indexOf(nextTrack), 1);
+      audio.src = nextTrack;
     } else {
-      audio.pause();
+      this.chooseTrack();
+      // тут потом ошибка после проигрывания всех треков
+
+      // коммит - Реализован выбор случайного трека
     }
   }
 }
