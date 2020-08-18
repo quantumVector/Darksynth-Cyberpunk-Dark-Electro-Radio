@@ -11,6 +11,8 @@ const trackList = [
 let editableTrackList = trackList.slice();
 let visualizer;
 const infoBox = document.getElementById('track-info-box');
+const volume = document.getElementById('volume');
+const volumeLvl = document.getElementById('volume-level');
 
 function preload() {
   font = loadFont('/fonts/InterExtraLight.ttf');
@@ -48,6 +50,11 @@ function mouseClicked() {
       audio.pause();
     }
   }
+}
+
+volume.oninput = () => {
+  console.log(volumeLvl.style.height)
+  volumeLvl.style.height = volume.value * 130 / 100 + 10 + 'px';
 }
 
 class Visualizer {

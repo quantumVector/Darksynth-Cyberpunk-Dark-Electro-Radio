@@ -61,3 +61,64 @@ body {
   font-size: 28px;
   color: #00BFFF;
 }
+
+.volume-container {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+}
+
+.volume {
+  -webkit-appearance: none;
+  position: absolute;
+  bottom: 66px;
+  right: -71px;
+  width: 150px;
+  height: 11px;
+  transform: rotate(270deg);
+  border-radius: 5px;
+  background: none;
+  outline: none;
+  z-index: 200;
+}
+
+.volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #00BFFF;
+  cursor: pointer;
+}
+
+.volume::-moz-range-thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #00BFFF;
+  cursor: pointer;
+}
+
+#volume-background  {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 11px;
+  height: 149px;
+  border-radius: 5px;
+  background: rgb(167, 167, 167);
+  opacity: 0.3;
+  z-index: 100;
+}
+
+#volume-level  {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 11px;
+  height: 75px;
+  border-radius: 5px;
+  background: #00BFFF;
+  z-index: 150;
+}

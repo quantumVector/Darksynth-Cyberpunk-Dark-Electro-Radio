@@ -10,11 +10,7 @@
 
 <body>
 
-    <!-- <audio src="QUINZE - Le Glas.mp3"></audio> -->
-    <!-- <audio src="songs/title(Quok - Wonderland).mp3"></audio> -->
-    <!-- <audio src="songs/title(test - testerov).mp3"></audio> -->
     <audio></audio>
-    <!-- <audio src="Cyberpunk.mp3"></audio> -->
 
     <div class="logo">
         <p>Darksynth / Cyberpunk / DarkElectro Radio</p>
@@ -26,6 +22,12 @@
             <p id="artist"></p>
             <p id="title"></p>
         </div>
+    </div>
+
+    <div class="volume-container">
+        <input type="range" min="0" max="100" value="50" class="volume" id="volume">
+        <div id="volume-background"></div>
+        <div id="volume-level"></div>
     </div>
 
     <script src="p5/p5.js"></script>
