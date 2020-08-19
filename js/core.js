@@ -53,9 +53,22 @@ function mouseClicked() {
 }
 
 volume.oninput = () => {
-  console.log(volumeLvl.style.height)
+  let num;
+
   volumeLvl.style.height = volume.value * 130 / 100 + 10 + 'px';
+
+  if (volume.value > 0 && volume.value <= 9) {
+    num = volume.value * 0.01;
+    audio.volume = num.toFixed(2);
+  }
+  if (volume.value > 10) {
+    num = volume.value * 0.01;
+    audio.volume = num.toFixed(2);
+  }
+  if (volume.value == 0) audio.volume = 0.0;
 }
+
+// Настроен регулятор громкости
 
 class Visualizer {
   constructor() {
