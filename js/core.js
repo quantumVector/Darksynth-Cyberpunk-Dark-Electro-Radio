@@ -35,7 +35,8 @@ function draw() {
 function mouseClicked(e) {
   let target = e.target;
 
-  if (target.id === 'volume' || target.id === 'artist' || target.id === 'title') return;
+  if (target.id === 'volume' || target.id === 'artist' ||
+    target.id === 'title' || target.id === 'logo-title') return;
 
   if (!visualizer.prepared) {
     let firstTrack = random(trackList);
