@@ -11,6 +11,7 @@ const trackList = [
 let editableTrackList = trackList.slice();
 let visualizer;
 const infoBox = document.getElementById('track-info-box');
+const volumeContainer = document.getElementById('volume-container');
 const volume = document.getElementById('volume');
 const volumeLvl = document.getElementById('volume-level');
 
@@ -38,11 +39,15 @@ function mouseClicked() {
     editableTrackList.splice(editableTrackList.indexOf(firstTrack), 1);
     audio.src = firstTrack;
     audio.play();
+    audio.volume = 0.5;
     visualizer.preparation();
     visualizer.prepared = true;
     visualizer.play = true;
     visualizer.loop = true;
     visualizer.draw();
+
+    volumeContainer.style.opacity = '1';
+    volumeContainer.style.visibility = 'visible';
   } else {
     if (audio.paused) {
       audio.play();
@@ -67,8 +72,6 @@ volume.oninput = () => {
   }
   if (volume.value == 0) audio.volume = 0.0;
 }
-
-// Настроен регулятор громкости
 
 class Visualizer {
   constructor() {

@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #000;
 }
 
 @font-face {
@@ -62,13 +63,16 @@ body {
   color: #00BFFF;
 }
 
-.volume-container {
+#volume-container {
   position: absolute;
   right: 40px;
   bottom: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 3s opacity, 3s visibility;
 }
 
-.volume {
+#volume-container .volume {
   -webkit-appearance: none;
   position: absolute;
   bottom: 66px;
@@ -82,7 +86,7 @@ body {
   z-index: 200;
 }
 
-.volume::-webkit-slider-thumb {
+#volume-container .volume::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 17px;
@@ -92,7 +96,7 @@ body {
   cursor: pointer;
 }
 
-.volume::-moz-range-thumb {
+#volume-container .volume::-moz-range-thumb {
   width: 17px;
   height: 17px;
   border-radius: 50%;
@@ -100,7 +104,7 @@ body {
   cursor: pointer;
 }
 
-#volume-background  {
+#volume-container #volume-background  {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -112,7 +116,7 @@ body {
   z-index: 100;
 }
 
-#volume-level  {
+#volume-container #volume-level  {
   position: absolute;
   bottom: 0;
   right: 0;
