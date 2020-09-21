@@ -9,7 +9,6 @@ const trackList = [
   'songs/title(test - testerov).mp3'
 ];
 let editableTrackList = trackList.slice();
-let visualizer;
 const infoBox = document.getElementById('track-info-box');
 const volumeContainer = document.getElementById('volume-container');
 const volume = document.getElementById('volume');
@@ -23,13 +22,16 @@ function setup() {
   const cnv = createCanvas(windowWidth, windowHeight);
 
   cnv.style('display', 'block');
-  visualizer = new Visualizer();
 
   noStroke();
 }
 
 function draw() {
   visualizer.draw();
+}
+
+function windowResized() {
+  setup();
 }
 
 function mouseClicked(e) {
@@ -246,3 +248,5 @@ class Visualizer {
     }
   }
 }
+
+let visualizer = new Visualizer();
