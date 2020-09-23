@@ -6,7 +6,31 @@ const trackList = [
   'songs/title(Head Splitter - Scavengers Music).mp3',
   'songs/title(Quinze - Le Glas).mp3',
   'songs/title(Quok - Wonderland).mp3',
-  'songs/title(test - testerov).mp3'
+  'songs/title(Matteo Tura - Larsen).mp3',
+  'songs/title(Matteo Tura - Fall).mp3',
+  'songs/title(Mois Blak - Umbra).mp3',
+  'songs/title(Lyde - Augmentation).mp3',
+  'songs/title(ASSALM - Chimera).mp3',
+  'songs/title(Revizia - Assault).mp3',
+  'songs/title(Vakhtang - ONLY).mp3',
+  'songs/title(Lyde - Afterlife Avenue).mp3',
+  'songs/title(XYXXYYYXXYX - Obscenity).mp3',
+  'songs/title(Lazerpunk - Nightcrawler).mp3',
+  'songs/title(Vakhtang - Some Things).mp3',
+  'songs/title(SWARM - Kill Me).mp3',
+  'songs/title(GRoost - Flexibility of Mind).mp3',
+  'songs/title(Goge-L - Dogfight).mp3',
+  'songs/title(Goge-L - De Humanization).mp3',
+  'songs/title(HIPPO - M Y).mp3',
+  'songs/title(GRoost - Howl).mp3',
+  'songs/title(Kage - Time).mp3',
+  'songs/title(Cyberpunk 2077 - Scavenger Hideout).mp3',
+  'songs/title(Cyberpunk 2077 - Spiderbot).mp3',
+  'songs/title(Boris Brejcha - Devil).mp3',
+  'songs/title(t_error 404 - Astramental).mp3',
+  'songs/title(t_error 404 - Alien Angel).mp3',
+  'songs/title(t_error 404 - New Knowledge).mp3',
+  'songs/title(t_error 404 - Tantra Centauri).mp3',
 ];
 let shuffledTrackList;
 const infoBox = document.getElementById('track-info-box');
@@ -44,11 +68,9 @@ function mouseClicked(e) {
     target.id === 'previous' || target.id === 'forward') return;
 
   if (!visualizer.prepared) {
-    // let firstTrack = random(trackList);
     shuffledTrackList = trackList.slice();
     visualizer.shuffle(shuffledTrackList);
 
-    // editableTrackList.splice(editableTrackList.indexOf(firstTrack), 1);
     audio.src = shuffledTrackList[0];
     audio.play();
     audio.volume = 0.5;
@@ -255,7 +277,7 @@ class Visualizer {
   // алгоритм Тасование Фишера — Йетса
   shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+      let j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
