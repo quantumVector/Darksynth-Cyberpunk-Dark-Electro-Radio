@@ -8,9 +8,11 @@ const trackList = [
   'songs/title(Quok - Wonderland).mp3',
   'songs/title(test - testerov).mp3'
 ];
-let editableTrackList = trackList.slice();
+let shuffledTrackList;
 const infoBox = document.getElementById('track-info-box');
 const volumeContainer = document.getElementById('volume-container');
+const btnPrevious = document.getElementById('previous');
+const btnForward = document.getElementById('forward');
 const volume = document.getElementById('volume');
 const volumeLvl = document.getElementById('volume-level');
 
@@ -38,13 +40,16 @@ function mouseClicked(e) {
   let target = e.target;
 
   if (target.id === 'volume' || target.id === 'artist' ||
-    target.id === 'title' || target.id === 'logo-title') return;
+    target.id === 'title' || target.id === 'logo-title' ||
+    target.id === 'previous' || target.id === 'forward') return;
 
   if (!visualizer.prepared) {
-    let firstTrack = random(trackList);
+    // let firstTrack = random(trackList);
+    shuffledTrackList = trackList.slice();
+    visualizer.shuffle(shuffledTrackList);
 
-    editableTrackList.splice(editableTrackList.indexOf(firstTrack), 1);
-    audio.src = firstTrack;
+    // editableTrackList.splice(editableTrackList.indexOf(firstTrack), 1);
+    audio.src = shuffledTrackList[0];
     audio.play();
     audio.volume = 0.5;
     visualizer.preparation();
@@ -55,6 +60,10 @@ function mouseClicked(e) {
 
     volumeContainer.style.opacity = '1';
     volumeContainer.style.visibility = 'visible';
+    btnPrevious.style.opacity = '1';
+    btnPrevious.style.visibility = 'visible';
+    btnForward.style.opacity = '1';
+    btnForward.style.visibility = 'visible';
   } else {
     if (audio.paused) {
       audio.play();
@@ -80,6 +89,18 @@ volume.oninput = () => {
   if (volume.value == 0) audio.volume = 0.0;
 }
 
+btnForward.onclick = () => {
+  visualizer.hideTrackInfo();
+  visualizer.trackInfo = false;
+  visualizer.playNextTrack();
+}
+
+btnPrevious.onclick = () => {
+  visualizer.hideTrackInfo();
+  visualizer.trackInfo = false;
+  visualizer.playPreviousTrack();
+}
+
 class Visualizer {
   constructor() {
     this.prepared = false;
@@ -90,6 +111,7 @@ class Visualizer {
     this.src;
     this.array;
     this.trackInfo = false;
+    this.currentTrackIndex = 0;
   }
 
   preparation() {
@@ -230,22 +252,40 @@ class Visualizer {
     infoBox.style.visibility = 'hidden';
   }
 
+  // алгоритм Тасование Фишера — Йетса
+  shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
   playNextTrack() {
-    this.chooseTrack();
+    const nextTrackIndex = this.currentTrackIndex + 1;
+
+    if (nextTrackIndex <= shuffledTrackList.length - 1) {
+      audio.src = shuffledTrackList[nextTrackIndex];
+      this.currentTrackIndex = nextTrackIndex;
+    } else {
+      audio.src = shuffledTrackList[0];
+      this.currentTrackIndex = 0;
+    }
+
     audio.play();
   }
 
-  chooseTrack() {
-    let nextTrack = random(trackList);
+  playPreviousTrack() {
+    const previousTrackIndex = this.currentTrackIndex - 1;
 
-    if (!editableTrackList.length) editableTrackList = trackList.slice();
-
-    if (editableTrackList.indexOf(nextTrack) >= 0) {
-      editableTrackList.splice(editableTrackList.indexOf(nextTrack), 1);
-      audio.src = nextTrack;
+    if (previousTrackIndex >= 0) {
+      audio.src = shuffledTrackList[previousTrackIndex];
+      this.currentTrackIndex = previousTrackIndex;
     } else {
-      this.chooseTrack();
+      audio.src = shuffledTrackList[shuffledTrackList.length - 1];
+      this.currentTrackIndex = shuffledTrackList.length - 1;
     }
+
+    audio.play();
   }
 }
 
