@@ -1,10 +1,10 @@
 # Darksynth-Cyberpunk-Dark-Electro-Radio
 
+---
+
 Онлайн радио/плейр
 
 ![](https://github.com/quantumVector/Darksynth-Cyberpunk-Dark-Electro-Radio/blob/master/img/exemple.gif)
-
----
 
 ## Что использовалось
 
