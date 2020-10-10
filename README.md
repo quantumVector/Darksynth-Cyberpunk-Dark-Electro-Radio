@@ -6,7 +6,7 @@
 
 ## Что использовалось
 
-- JavaScript, p5.js, canvas
+- HTML, CSS, JavaScript, p5.js, canvas
 
 ## Страница проекта
 
