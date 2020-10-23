@@ -1,6 +1,6 @@
 # Darksynth-Cyberpunk-Dark-Electro-Radio
 
-Онлайн радио/плейр
+Онлайн радио/плеер
 
 ![](https://github.com/quantumVector/Darksynth-Cyberpunk-Dark-Electro-Radio/blob/master/img/exemple.gif)
 
